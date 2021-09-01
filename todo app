@@ -1,0 +1,96 @@
+import react from "react";
+import"./App.cc";
+import{Button,Card,form}from'react bootstrap';
+import' bootstrap/dist/css/bootstrap.min.cc';
+
+
+function todo({todo,index,markTodo,removeTodo}){
+return(
+<div
+   Classname="todo"
+   
+   >
+   <span style={{textdecoration:todo. isdone ? "line-through" :""}}>{todo.text}</span>
+   <div>
+      <Button variant="outline-sucees"onCliick={()=> markTodo(index)}>right</Button>{' '}
+      <Button variant="outline-danger" onClick{()=> removeTodo(index)}>wrong</Button
+   </div>
+</div>
+);
+}
+
+function formTodo({addTodo}){
+  const[value,setvalue]=react.usestate("");
+  
+  const handlesubmit =e=>{
+  e.preventDefault();
+  if(!value)return;
+  addTodo(value);
+  setValue("");
+  };
+  
+  return(
+  <form onsubmit={handlesubmit}>
+  <form.Group>
+    <form.label><b>AddTodo</b></form.label>
+    <form.control type="text" className="input"value={value} onchange={e=> setvalue(e.target.value)}placeholder="Add new Todo"/>
+  </form.group>
+  <Button variant="primary mb-3" type="submit">
+    submit
+  </Button>
+</form>
+);
+}
+
+function app(){
+  const[todos,settodos]=react.usestate([
+  {
+    text:"this is a sample todo",
+    isdone:false
+    }
+    ]);
+    
+    const addtodo =text =>{
+      const newtodos=[...todos,{text}];
+      settodos(newtodos);
+    };
+    
+    const marktodo = index=>{
+      const newtodos =  [...todos];
+      newtodos[index].isdone = true;
+      settodos(newtodos);
+    };
+    
+    const removetodo= index=>{
+     const newtodos = [...todos];
+     newtodos.splice(index,1);
+     settodos(newtodos);
+   };
+   
+   return(
+   <div classname="app">
+     <div classname="container">
+        <h1 classname="text-center mb-4".todo list</h1>
+        <formtodo addtodo={addtodo}/>
+        <div>
+          {todos.map((todo,index) =>(
+            <card>
+              <card.body>
+                <todo
+                key={index}
+                index={index}
+                todo={todo}
+                marktodo={marktodo}
+                removetodo={removetodo}
+                />
+              </card.body>
+             </card>
+          ))}
+         </div>
+       </div>
+     </div>
+   );
+ }
+ 
+ export default App;
+       
